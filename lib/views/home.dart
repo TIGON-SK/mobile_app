@@ -14,8 +14,7 @@ class _HomeState extends State<Home> {
       body:Padding(
         padding:const EdgeInsets.only(top:50.0),
         child:TextButton(onPressed: () {
-          BookData bookData = new BookData();
-          print(bookData.getBooks());
+          fetchBooks();
         }, child: Text("Ahoj")),
       ),
     );

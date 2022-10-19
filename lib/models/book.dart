@@ -10,7 +10,6 @@ class Book{
     return Book(
         id: parsedJson['id'],
         title : parsedJson['title'],
-
     );
   }
 }
