@@ -4,25 +4,26 @@ class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<Navigation> createState() => NavigationState();
 }
 
-class _NavigationState extends State<Navigation> {
+class NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.book_sharp),
-                SizedBox(width: 10),
-                Text('Knižnica')
-              ],
-            )
-        ),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text('Knižnica'),
+          actions: <Widget>[
+      IconButton(
+      icon: const Icon(Icons.add_alert),
+      tooltip: 'Show Snackbar',
+      onPressed: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('This is a snackbar')));
+      },
+    ),
+    ]
+    ),
     );
   }
 }
