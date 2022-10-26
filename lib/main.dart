@@ -4,12 +4,13 @@ import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/login.dart';
 
 void main() => runApp(MaterialApp(
-    initialRoute: '/',
+    initialRoute: '/login',
     routes: {
-      '/': (context) => Loading(),
-      //'/home': (context) => Home(booksList),
-      // '/authors': (context) => ,
-      // '/genres': (context) => ,
+      //'/': (context) => Loading(),
+      '/login': (context) => Login(),
+      '/home': (context) => Home(),
+       '/authors': (context) => ,
+       '/genres': (context) => ,
     }
 )
 );

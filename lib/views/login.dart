@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/views/home.dart';
+import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/widgets/navigation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,6 +15,7 @@ class _LoginState extends State<Login> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -52,8 +54,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             TextButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               child: Text(
                 'Forgot Password',
                 style: TextStyle(color: Colors.blue, fontSize: 15),
@@ -62,30 +63,14 @@ class _LoginState extends State<Login> {
             Container(
               height: 50,
               width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              // child: TextButton(
-                // onPressed: () {
-                //   validator: (value) async {
-                //     if (value == null || value.isEmpty) {
-                //       FocusManager.instance.primaryFocus?.unfocus();
-                //     }
-                //     else{
-                //       // var user_data = await fetchUserToken(emailController.text,passwordController.text)
-                //       //     .timeout(const Duration(seconds: 10));
-                //       // Navigator.pushAndRemoveUntil(
-                //       //     context, MaterialPageRoute(builder: (context)=>MainHome(name: user_data.name)),
-                //       //     ModalRoute.withName("/Home")
-                //       // );
-                //     }
-                //
-                //   },
-                // },
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Home()));
+                },
+                child: Text('Login'),
               ),
+            ),
             // ),
             SizedBox(
               height: 130,

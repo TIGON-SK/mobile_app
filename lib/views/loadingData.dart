@@ -12,28 +12,16 @@ class _LoadingState extends State<Loading> {
   void setUpBooks() async {
     BooksApi instance = BooksApi();
     await instance.fetchBooks();
-    //Navigator.pushNamed(context, "/home",arguments: {"books" :instance.booksFetched});
-
-    // Navigator.push(context, ,arguments: {
-    //   "books":instance.booksFetched});
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home(instance.booksFetched)));
   }
 
   @override
   void initState() {
     super.initState();
-    print("AAa");
     setUpBooks();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.blue[900],
-        body: Center(
-            child: SpinKitPouringHourglass(
-          color: Colors.white,
-          size: 50.0,
-        )));
+    return Scaffold();// widget tree
   }
 }
