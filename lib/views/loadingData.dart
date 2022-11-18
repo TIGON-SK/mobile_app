@@ -10,8 +10,8 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void setUpBooks() async {
-    BooksApi instance = BooksApi();
-    await instance.fetchBooks();
+    //BooksApi instance = BooksApi();
+    //await instance.fetchBooks(token);
   }
 
   @override

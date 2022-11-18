@@ -16,11 +16,11 @@ class UserWithToken {
     required this.token,
   });
 
-  factory UserWithToken.fromJson(Map<String, dynamic> json) {
+  factory UserWithToken.fromJson(Map<dynamic, dynamic> json) {
     return UserWithToken(
-      id: json["user"]['id'] as int,
-      email: json["user"]['email'].toString(),
-      name: json["user"]['name'].toString(),
+      id: json['id'] as int,
+      email: json['email'].toString(),
+      name: json['name'].toString(),
       token:json["token"] as String,
     );
   }
