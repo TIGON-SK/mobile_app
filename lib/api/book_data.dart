@@ -22,15 +22,18 @@ class Books {
 class Book {
   final String id;
   final String title;
+  final int count_available;
 
   const Book({
     required this.id,
     required this.title,
+    required this.count_available,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
     id: json["id"].toString(),
     title: json["title"],
+      count_available:json["count_available"]
   );
 }
 

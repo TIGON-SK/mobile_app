@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:library_app/views/home.dart';
+import 'package:library_app/views/explore.dart';
 import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/screenArguments.dart';
 import 'package:library_app/views/welcome.dart';
@@ -171,13 +171,8 @@ class _RegisterState extends State<Register> {
                   // Navigator.of(context)
                   //     .push(MaterialPageRoute(builder: (context) => Home()));
                   if (canSwitchScreen) {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => Welcome(),
-                          settings: RouteSettings(
-                            arguments: ScreenArguments(userDataFetched,obtainedToken)
-                          )),
-                    );
+                    Map map = {"userDataFetched":userDataFetched,"obtainedToken":obtainedToken};
+                    await Welcome(map);
                   }
                 },
                 child: Text('Vytvoriť konto'),

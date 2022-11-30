@@ -12,25 +12,25 @@ import 'package:library_app/views/widgets/navigation.dart';
 import 'explore.dart';
 import 'login.dart';
 
-class Settings extends StatefulWidget {
+class Profile extends StatefulWidget {
   Map map = {};
-  Settings(this.map);
+  Profile(this.map);
   @override
-  SettingsState createState() => SettingsState(map);
+  ProfileState createState() => ProfileState(map);
 }
 
-class SettingsState extends State<Settings> {
+class ProfileState extends State<Profile> {
   Map map = {};
-  SettingsState(this.map);
+  ProfileState(this.map);
   @override
   Widget build(BuildContext context) {
 
 
     return Scaffold(
         body: Column(
-          children: [
-            Text("Nastavenia"),Text("Nastavenia"),Text(map.toString()),
-  ]));
+            children: [
+              Text("Profil"),Text("Profil"),Text(map.toString()),
+            ]));
 
   }
 }

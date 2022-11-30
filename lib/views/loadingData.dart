@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/api/book_data.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:library_app/views/home.dart';
+import 'package:library_app/views/explore.dart';
 
 class Loading extends StatefulWidget {
   @override

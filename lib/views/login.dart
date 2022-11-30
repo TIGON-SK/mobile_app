@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:library_app/views/home.dart';
+import 'package:library_app/views/explore.dart';
 import 'package:library_app/views/register.dart';
 import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/screenArguments.dart';
@@ -24,7 +24,7 @@ bool _validateEmail = false;
 bool _validatePass = false;
 Map userDataFetched = {};
 bool canSwitchScreenlogin = false;
-var obtainedTokenLogin;
+var obtainedToken;
 
 Future<void> fetchUserTokenRegister(String email, String password) async {
   final response =
@@ -43,20 +43,25 @@ Future<void> fetchUserTokenRegister(String email, String password) async {
     );
     if (userResponse.statusCode == 200 || userResponse.statusCode == 201) {
       canSwitchScreenlogin = true;
-      obtainedTokenLogin = loginInfoParsed['token'];
+      obtainedToken = loginInfoParsed['token'];
       userDataFetched = json.decode(userResponse.body);
       //var userData=UserWithToken.fromJson(parsedUserResponse);
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', loginInfoParsed['token']);
     } else {
       canSwitchScreenlogin = false;
-      showToast();
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        showToast();
+      });
+
     }
   }
 }
 
 Future<bool?> showToast() {
+
   return Fluttertoast.showToast(
+
       msg: 'Zadajte email, ktorý ešte nie je registrovaný',
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
@@ -66,22 +71,15 @@ Future<bool?> showToast() {
 }
 
 class _LoginState extends State<Login> {
-
+  @override
+  void initState() {
+    super.initState();
+    emailController.clear();
+  }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    passwordController.clear();
     return Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   title: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       FaIcon(FontAwesomeIcons.book),
-        //       SizedBox(width: 10),
-        //       Text('Knižnica')
-        //     ],
-        //   ),
-        // ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -146,15 +144,21 @@ class _LoginState extends State<Login> {
                     // Navigator.of(context)
                     //     .push(MaterialPageRoute(builder: (context) => Home()));
                     if (canSwitchScreenlogin) {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => Welcome(),
-                            settings: RouteSettings(
-                              arguments: ScreenArguments(
-                                  userDataFetched, obtainedTokenLogin),
-                            )),
-                      );
+                      canSwitchScreen=false;
+                      Map map = {"userDataFetched":userDataFetched,"obtainedToken":obtainedToken};
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Welcome(map)),);
                     }
+                    //   await Navigator.of(context).push(
+                    //     MaterialPageRoute(
+                    //         builder: (context) => ,
+                    //         settings: RouteSettings(
+                    //           arguments: ScreenArguments(
+                    //               n),
+                    //         )),
+                    //   );
+                    // }
                   },
                   child: Text('Prihlásiť sa'),
                 ),

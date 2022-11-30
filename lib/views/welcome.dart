@@ -5,93 +5,74 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_app/api/book_data.dart';
 import 'package:library_app/api/user_token.dart';
 import 'package:library_app/views/loadingData.dart';
+import 'package:library_app/views/profile.dart';
 import 'package:library_app/views/register.dart';
 import 'package:library_app/views/screenArguments.dart';
+import 'package:library_app/views/settings.dart';
 import 'package:library_app/views/widgets/navigation.dart';
 
-import 'home.dart';
+import 'explore.dart';
 import 'login.dart';
+import 'logout.dart';
 
 class Welcome extends StatefulWidget {
+  Map map = {};
+  Welcome(this.map);
+
   @override
-  WelcomeState createState() => WelcomeState();
+  WelcomeState createState() => WelcomeState(map);
 }
 
 class WelcomeState extends State<Welcome> {
+  Map map = {};
+  WelcomeState(this.map);
+  int _selectedIndex = 0;
+
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  //Future<List> bookList;
+  bool loading = true;
+  bool filledParams=false;
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
-    final List _children = [
-      HomeState(),
-      
+    final List _widgetOptions = [
+      Settings(map),
+      Profile(map),
+      //emptyParams
+      Explore(map, loading, filledParams),
+      Logout(),
     ];
-
-    void onTabTapped(int index) {
-      setState(() {
-        _currentIndex = index;
-      });
-    }
-
-    final data = ModalRoute
-        .of(context)!
-        .settings
-        .arguments as ScreenArguments;
-    //final args = ModalRoute.of(context)!.settings.arguments as UserWithToken;
-    Map dataWToken = {};
-    // if (data.arguments == null)
-    //   dataWToken = "empty";
-    // else
-    //   dataWToken = data.arguments as String;
-    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-    //   //setstate?
-    //
-    //
-    // });
-    setState(() {
-      dataWToken = data.data as Map;
-      dataWToken['token']=data.token;
-      dataWToken['firstStart']=false;
-    });
     return Scaffold(
-      body: Column(
-        children: [
-          Text("Ahoj! ${dataWToken['name']}"),
-          Text("Token: ${dataWToken['token']}"),
-          TextButton(
-            onPressed: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => Home(),
-                    settings: RouteSettings(
-                      arguments: dataWToken,
-                    )),
-              );
-            },
-            child: Text("Zobrazit knihy"),
-          )
-        ],
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: onTabTapped,
-          currentIndex: _currentIndex,
-          items: [
-            new BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(Icons.person),
-              label: "Profile",
-            ),
-            new BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(Icons.home),
-              label: "Home",
-            ),
-            new BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(Icons.book),
-              label: "Books",
-            ),
-          ],
-        )
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings,color: Colors.blueGrey),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,color: Colors.blueGrey),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.travel_explore,color: Colors.blueGrey),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout,color: Colors.blueGrey),
+            label: 'Log out',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueGrey,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
