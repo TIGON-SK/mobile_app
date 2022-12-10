@@ -124,7 +124,7 @@ packages:
       name: flutter_spinkit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -155,7 +155,7 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "10.2.1"
+    version: "10.3.0"
   http:
     dependency: "direct main"
     description:
