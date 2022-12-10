@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_app/api/book_data.dart';
+import 'package:library_app/api/reserve_book.dart';
 import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/register.dart';
 import 'package:library_app/views/screenArguments.dart';
@@ -55,9 +56,7 @@ class ExploreState extends State<Explore> {
             if (snapshot.hasData) {
               return SingleChildScrollView(
                   child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.all(50.0),
-                          child: Column(children: [
+                      child: Column(children: [
                             Text("Knihy",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 30)),
@@ -75,16 +74,28 @@ class ExploreState extends State<Explore> {
                                       children: [
                                         Center(
                                             child: Padding(
-                                                padding: EdgeInsets.all(20.0),
+                                                padding: EdgeInsets.only
+                                                  (bottom: 20),
                                                 child: Column(
                                                   children: [
-                                                    Text(snapshot
-                                                        .data![index].title),
-                                                    Text("Počet kusov na "
-                                                        "sklade:${snapshot
-                                                        .data![index].count_available}"),
+                                                    Padding(
+                                                      padding: EdgeInsets.all
+                                                        (5), //apply padding to all four sides
+                                                      child: Text(snapshot
+                                                          .data![index].title),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.all
+                                                        (5), //apply padding to all four sides
+                                                      child: Text("Počet kusov na "
+                                                          "sklade:${snapshot
+                                                          .data![index].count_available}"),
+                                                    ),
                                                     ElevatedButton(onPressed:
-                                                        () { apiRequest(index);
+                                                        () {
+                                                      apiRequest(int.parse
+                                                        (snapshot
+                                                          .data![index].id));
                                                         },
                                                       child: Text
                                                         ("Rezervovať"),)
@@ -94,7 +105,7 @@ class ExploreState extends State<Explore> {
                                     ),
                                   ));
                                 })
-                          ]))));
+                          ])));
             } else if (snapshot.hasError) {
               return Text("No data",
                   style: TextStyle(color: Colors.red.withOpacity(0.6)));
@@ -131,7 +142,10 @@ class ExploreState extends State<Explore> {
   }
 
   void apiRequest(int index) {
-    print(index);
+    ReserveBook reserveBook  = ReserveBook(dataWToken["userDataFetched"]["id"],
+        index);
+    reserveBook.reserve(dataWToken["obtainedToken"]);
+
   }
 }
 //   print(filledParams);

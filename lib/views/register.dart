@@ -39,6 +39,7 @@ Future<void> fetchUserTokenRegister(
     "password": password,
   });
   final Map registerInfoParsed = json.decode(response.body);
+  print(json.decode(response.body));
   if(registerInfoParsed['token']==null){
     canSwitchScreen = false;
     showToast();

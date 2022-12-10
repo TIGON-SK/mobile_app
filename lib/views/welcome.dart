@@ -48,7 +48,13 @@ class WelcomeState extends State<Welcome> {
     ];
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child:Padding(
+            padding: EdgeInsets.only(top: 50),
+          child:
+          _widgetOptions.elementAt(_selectedIndex),
+        )
+
+
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
