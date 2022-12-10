@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:library_app/views/explore.dart';
-import 'package:library_app/views/register.dart';
 import 'package:library_app/views/loadingData.dart';
 import 'package:library_app/views/screenArguments.dart';
 import 'package:library_app/views/welcome.dart';
@@ -62,7 +61,7 @@ Future<bool?> showToast() {
 
   return Fluttertoast.showToast(
 
-      msg: 'Zadajte email, ktorý ešte nie je registrovaný',
+      msg: 'Zadaný užívateľ neexistuje',
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
@@ -144,7 +143,7 @@ class _LoginState extends State<Login> {
                     // Navigator.of(context)
                     //     .push(MaterialPageRoute(builder: (context) => Home()));
                     if (canSwitchScreenlogin) {
-                      canSwitchScreen=false;
+                      canSwitchScreenlogin=false;
                       Map map = {"userDataFetched":userDataFetched,"obtainedToken":obtainedToken};
                       await Navigator.push(
                         context,
@@ -166,15 +165,6 @@ class _LoginState extends State<Login> {
               // ),
               SizedBox(
                 height: 130,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Register()));
-                },
-                child: Text(
-                  'Ešte nemáte účet? Vytvorte si ho',
-                ),
               ),
             ],
           ),

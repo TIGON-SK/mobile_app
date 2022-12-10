@@ -16,10 +16,8 @@ class GetReserved {
 
   List<Book> lb = [];
   List<BookUser> lbu = [];
-Future<void> init() async {
-  await getAllBooks();
-  await getAllBookUsers();
-  getUsersBooks();
+  void init() async {
+
 }
   Future<List<Book>> getAllBooks() async {
     BooksApi instance = BooksApi();
@@ -35,20 +33,28 @@ Future<void> init() async {
     return instance.bookUsersFetched;
   }
 
-  void getUsersBooks() {
-  print("Ahoj svet ${map["userDataFetched"]["id"]}");
+  Future<List<Book>> getUsersBooks() async {
+    await getAllBooks();
+    await getAllBookUsers();
+  List<int> ids = [];
     for (var i = 0; i < lbu.length; i++) {
-      print(lbu[i].user_id);
-      if(lbu[i].user_id==map["userDataFetched"]["id"]){
-        print("Mas tieto knihy:");
-        print(lbu[i].book_id);
+
+      if(lbu[i].user_id.toString()==map["userDataFetched"]["id"].toString()){
+        ids.add(int.parse(lbu[i].book_id));
       }
       else{
         print("Ziadne rezervovane knihy!");
       }
     }
-    // print(lbu[0].user_id);
-    // print("XXXXXX");
-    // print(lb.toString());
+  List<Book> books = [];
+  for (var i = 0; i < lb.length; i++) {
+    for (var j = 0; j < ids.length; j++) {
+      if (lb[i].id.toString()==ids[j].toString()) {
+        books.add(lb[i]);
+      }
+    }
+  }
+  return books;
+
   }
 }

@@ -23,17 +23,20 @@ class Book {
   final String id;
   final String title;
   final int count_available;
+  final String image;
 
   const Book({
     required this.id,
     required this.title,
     required this.count_available,
+    required this.image,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
     id: json["id"].toString(),
     title: json["title"],
-      count_available:json["count_available"]
+      count_available:json["count_available"],
+  image: json["image"].toString(),
   );
 }
 
@@ -48,7 +51,6 @@ class BooksApi {
       // "Accept": "application/json",
       'Authorization': "Bearer "+token
     });
-    //tutu je chyba!
     Books boox = Books.fromJson(jsonDecode(response.body));
     if (response.statusCode == 200) {
       booksFetched=boox.books;

@@ -5,7 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_app/api/book_data.dart';
 import 'package:library_app/api/user_token.dart';
 import 'package:library_app/views/loadingData.dart';
-import 'package:library_app/views/register.dart';
 import 'package:library_app/views/screenArguments.dart';
 import 'package:library_app/views/widgets/navigation.dart';
 
